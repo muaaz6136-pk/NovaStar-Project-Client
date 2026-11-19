@@ -1,0 +1,295 @@
+/*
+ * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
+ * - Keep every @import in this top block, above @theme and the rest of the file. Install an
+ *   npm package before @importing its CSS. Never @import a remote URL (web fonts, CDN CSS): the
+ *   build resolves @import from the filesystem. Load those with a <link> in the head() of
+ *   src/routes/__root.tsx and name the family in a --font-* token in @theme inline below.
+ */
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The design lives in this file: oklch color tokens on the shadcn variables
+ * (--background, --foreground, --primary, --secondary, --muted, --accent, ...) plus
+ * new tokens as needed, font tokens, and custom styles and animations.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Kaushan Script", cursive;
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-orange: var(--orange);
+  --color-orange-soft: var(--orange-soft);
+  --color-surface: var(--surface);
+  --color-star: var(--star);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 1rem;
+
+  /* Brand palette — Nova Star navy + orange */
+  --navy: oklch(0.36 0.14 263);
+  --navy-deep: oklch(0.24 0.09 265);
+  --orange: oklch(0.73 0.18 52);
+  --orange-soft: oklch(0.82 0.15 65);
+  --star: oklch(0.83 0.16 80);
+  --surface: oklch(0.97 0.01 255);
+
+  --background: oklch(0.99 0.004 255);
+  --foreground: oklch(0.22 0.07 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.07 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.07 265);
+  --primary: var(--navy);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.95 0.015 255);
+  --secondary-foreground: oklch(0.24 0.09 265);
+  --muted: oklch(0.95 0.012 255);
+  --muted-foreground: oklch(0.45 0.04 262);
+  --accent: var(--orange);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.9 0.02 258);
+  --input: oklch(0.88 0.02 258);
+  --ring: var(--orange);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* Gradients & shadows */
+  --gradient-orange: linear-gradient(135deg, oklch(0.78 0.17 62), oklch(0.68 0.2 45));
+  --gradient-navy: linear-gradient(135deg, oklch(0.36 0.14 263), oklch(0.22 0.09 266));
+  --gradient-hero-fade: linear-gradient(
+    90deg,
+    oklch(0.99 0.004 255) 0%,
+    oklch(0.99 0.004 255 / 0.92) 38%,
+    oklch(0.99 0.004 255 / 0.2) 62%,
+    transparent 75%
+  );
+  --gradient-text-orange: linear-gradient(180deg, oklch(0.8 0.17 65), oklch(0.68 0.2 45));
+  --shadow-orange: 0 10px 24px -8px oklch(0.7 0.19 50 / 0.6);
+  --shadow-navy: 0 10px 24px -10px oklch(0.24 0.09 265 / 0.7);
+  --shadow-card: 0 20px 45px -20px oklch(0.24 0.09 265 / 0.35);
+}
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: var(--orange);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility bg-gradient-orange {
+  background-image: var(--gradient-orange);
+}
+@utility bg-gradient-navy {
+  background-image: var(--gradient-navy);
+}
+@utility bg-hero-fade {
+  background-image: var(--gradient-hero-fade);
+}
+@utility text-gradient-orange {
+  background-image: var(--gradient-text-orange);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility shadow-orange {
+  box-shadow: var(--shadow-orange);
+}
+@utility shadow-navy {
+  box-shadow: var(--shadow-navy);
+}
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+/* Small uppercase label with orange rules, e.g. "— ABOUT US —" */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--navy-deep);
+  &::before,
+  &::after {
+    content: "";
+    height: 2px;
+    width: 2.25rem;
+    border-radius: 999px;
+    background-image: var(--gradient-orange);
+  }
+}
+
+@utility eyebrow-light {
+  color: var(--primary-foreground);
+}
+
+/* Navy band with soft star sparkle + orange swoosh edge */
+@utility band-navy {
+  position: relative;
+  background-image:
+    radial-gradient(circle at 85% 20%, oklch(0.5 0.15 260 / 0.45), transparent 45%),
+    radial-gradient(circle at 10% 90%, oklch(0.45 0.14 262 / 0.4), transparent 40%),
+    var(--gradient-navy);
+  color: var(--primary-foreground);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15) rotate(12deg);
+    opacity: 0.85;
+  }
+}
+@utility animate-rise {
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@utility animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Slanted white panel behind the header logo */
+@utility logo-panel {
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+}
